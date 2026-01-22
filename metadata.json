@@ -1,7 +1,8 @@
 {
-  "name": "OurKuakata",
-  "description": "The ultimate mobile tourism guide for Kuakata Sea Beach, Bangladesh. Explore attractions, find hotels, and plan your trip with ease.",
+  "name": "OurKuakata Pro",
+  "description": "Professional Tourism Management System for Kuakata. Managed by District Administration. Dynamic Backend Enabled.",
   "requestFramePermissions": [
-    "geolocation"
+    "geolocation",
+    "camera"
   ]
 }

@@ -1,112 +1,36 @@
 
-import { Place, Category } from './types';
+import { Place, Category, Announcement } from './types';
 
-export const PLACES: Place[] = [
+export const APP_FEATURES = [
+  { id: 'spots', labelBn: 'দর্শনীয় স্থান সমূহ', labelEn: 'Tourist Spots', icon: 'https://cdn-icons-png.flaticon.com/512/2560/2560421.png', path: '/places' },
+  { id: 'weather', labelBn: 'আবহাওয়ার পূর্বাভাস', labelEn: 'Weather Update', icon: 'https://cdn-icons-png.flaticon.com/512/1163/1163763.png', path: '/weather' },
+  { id: 'hotel', labelBn: 'আবাসন সুবিধাসমূহ', labelEn: 'Find Your Accommodation', icon: 'https://cdn-icons-png.flaticon.com/512/2316/2316041.png', path: '/hotels' },
+  { id: 'transport', labelBn: 'পরিবহন কাউন্টার', labelEn: 'Transport Counter', icon: 'https://cdn-icons-png.flaticon.com/512/3063/3063822.png', path: '/transport' },
+  { id: 'events', labelBn: 'আসন্ন ইভেন্টসমূহ', labelEn: 'Upcoming Events', icon: 'https://cdn-icons-png.flaticon.com/512/3652/3652191.png', path: '/events' },
+  { id: 'dc', labelBn: 'জেলা প্রশাসনের উদ্যোগ', labelEn: 'DC Initiatives', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Government_Seal_of_Bangladesh.svg/1200px-Government_Seal_of_Bangladesh.svg.png', path: '/dc' },
+  { id: 'atm', labelBn: 'ব্যাংক/এটিএম', labelEn: 'Bank/ATM', icon: 'https://cdn-icons-png.flaticon.com/512/2830/2830284.png', path: '/atm' },
+  { id: 'caution', labelBn: 'সতর্কতা এলাকা', labelEn: 'Caution Area', icon: 'https://cdn-icons-png.flaticon.com/512/564/564619.png', path: '/caution' },
+  { id: 'kitkat', labelBn: 'কিটকট চেয়ার', labelEn: 'Kitkat Chair', icon: 'https://cdn-icons-png.flaticon.com/512/2664/2664654.png', path: '/kitkat' },
+  { id: 'local_trans', labelBn: 'স্থানীয় যাতায়াতের মাধ্যমসমূহ', labelEn: 'Local Transport', icon: 'https://cdn-icons-png.flaticon.com/512/3462/3462214.png', path: '/local-transport' },
+  { id: 'complaints', labelBn: 'অভিযোগ ও উপদেশ', labelEn: 'Complaints & Advice', icon: 'https://cdn-icons-png.flaticon.com/512/10312/10312384.png', path: '/complaints' },
+  { id: 'ai', labelBn: 'এআই ট্যুর প্ল্যানার', labelEn: 'AI Tour Planner', icon: 'https://cdn-icons-png.flaticon.com/512/2103/2103633.png', path: '/ai-planner' }
+];
+
+export const MOCK_ANNOUNCEMENTS: Announcement[] = [
   {
-    id: 'p1',
-    nameBn: 'কুয়াকাটা সমুদ্র সৈকত',
-    nameEn: 'Kuakata Sea Beach',
-    category: Category.PLACE,
-    descriptionBn: 'কুয়াকাটা দক্ষিণ এশিয়ার একমাত্র সমুদ্র সৈকত যেখান থেকে সূর্যোদয় এবং সূর্যাস্ত উভয়ই দেখা যায়।',
-    descriptionEn: 'Kuakata is the only sea beach in South Asia from where both sunrise and sunset can be observed.',
-    image: 'https://picsum.photos/seed/beach/800/600',
-    location: { lat: 21.8122, lng: 90.1213, address: 'Kuakata, Patuakhali' },
-    bestTime: 'Sunrise & Sunset',
-    rating: 4.8
-  },
-  {
-    id: 'p2',
-    nameBn: 'লেবুর চর',
-    nameEn: 'Lebur Chor',
-    category: Category.PLACE,
-    descriptionBn: 'সৈকতের একদম শেষ প্রান্তে অবস্থিত প্রাকৃতিক সৌন্দর্যের এক অপূর্ব লীলাভূমি।',
-    descriptionEn: 'A place of natural beauty located at the very end of the beach.',
-    image: 'https://picsum.photos/seed/forest/800/600',
-    location: { lat: 21.8322, lng: 90.0913, address: 'Lebur Chor, Kuakata' },
-    bestTime: 'Late Afternoon',
-    rating: 4.5
-  },
-  {
-    id: 'p3',
-    nameBn: 'মিশ্রিপাড়া বৌদ্ধ মন্দির',
-    nameEn: 'Mishripara Buddhist Temple',
-    category: Category.PLACE,
-    descriptionBn: 'এখানে দক্ষিণ এশিয়ার অন্যতম বৃহত্তম বুদ্ধ মূর্তি রয়েছে।',
-    descriptionEn: 'Houses one of the largest Buddha statues in South Asia.',
-    image: 'https://picsum.photos/seed/temple/800/600',
-    location: { lat: 21.8522, lng: 90.1513, address: 'Mishripara, Kuakata' },
-    bestTime: 'Daylight',
-    rating: 4.6
+    id: 'a1',
+    date: '১১ ডিসেম্বর, ২০২৪',
+    titleBn: 'জরুরী ঘোষণা',
+    titleEn: 'Emergency Notice',
+    contentBn: 'সমস্ত ভ্রমণকারীদের জানানো যাচ্ছে যে, রক্ষণাবেক্ষণ কাজের কারণে কিছু রুটে সাময়িক বিঘ্ন ঘটতে পারে। অনুগ্রহ করে আপডেট করা সময়সূচি পরীক্ষা করে ভ্রমণের পরিকল্পনা করুন।',
+    contentEn: 'All travelers are informed that due to maintenance work, some routes may experience temporary disruptions. Please check the updated schedule.',
+    isImportant: true
   }
 ];
 
-export const HOTELS: Place[] = [
-  {
-    id: 'h1',
-    nameBn: 'সিকদার রিসোর্ট অ্যান্ড ভিলাস',
-    nameEn: 'Sikder Resort & Villas',
-    category: Category.HOTEL,
-    descriptionBn: 'কুয়াকাটার সবচেয়ে বিলাসবহুল রিসোর্টগুলোর একটি।',
-    descriptionEn: 'One of the most luxurious resorts in Kuakata.',
-    image: 'https://picsum.photos/seed/hotel1/800/600',
-    location: { lat: 21.8150, lng: 90.1250, address: 'Main Road, Kuakata' },
-    priceRange: '৳৫০০০ - ৳১৫০০০',
-    contact: '01711-XXXXXX',
-    facilities: ['Swimming Pool', 'Gym', 'Restaurant', 'Free WiFi'],
-    rating: 4.9
-  },
-  {
-    id: 'h2',
-    nameBn: 'হোটেল গ্রেভার ইন',
-    nameEn: 'Hotel Graver Inn',
-    category: Category.HOTEL,
-    descriptionBn: 'আরামদায়ক এবং আধুনিক সুযোগ সুবিধা সম্পন্ন হোটেল।',
-    descriptionEn: 'Comfortable hotel with modern amenities.',
-    image: 'https://picsum.photos/seed/hotel2/800/600',
-    location: { lat: 21.8130, lng: 90.1220, address: 'Beach Road, Kuakata' },
-    priceRange: '৳৩০০০ - ৳৮০০০',
-    contact: '01822-XXXXXX',
-    facilities: ['AC Rooms', 'Car Parking', 'Restaurant'],
-    rating: 4.4
-  }
-];
-
-export const RESTAURANTS: Place[] = [
-  {
-    id: 'r1',
-    nameBn: 'কুয়াকাটা ফ্রাই হাউজ',
-    nameEn: 'Kuakata Fry House',
-    category: Category.RESTAURANT,
-    descriptionBn: 'তাজা সামুদ্রিক মাছের ফ্রাইয়ের জন্য বিখ্যাত।',
-    descriptionEn: 'Famous for fresh seafood fries.',
-    image: 'https://picsum.photos/seed/fish/800/600',
-    location: { lat: 21.8115, lng: 90.1210, address: 'Beach Market, Kuakata' },
-    priceRange: '৳২০০ - ৳১০০০',
-    contact: '01933-XXXXXX',
-    rating: 4.7
-  }
-];
-
-export const EMERGENCY_CONTACTS = [
-  { name: 'Tourist Police', phone: '01320-XXXXXX', type: 'Police' },
-  { name: 'Kuakata Hospital', phone: '01711-XXXXXX', type: 'Health' },
-  { name: 'Fire Service', phone: '01611-XXXXXX', type: 'Rescue' },
-  { name: 'Tourist Helpline', phone: '16444', type: 'Info' }
-];
-
-export const TRANSPORT_INFO = [
-  {
-    type: 'Bus',
-    route: 'Dhaka to Kuakata',
-    fare: '৳৮০০ - ৳১৫০০',
-    duration: '১০-১২ ঘণ্টা',
-    description: 'Gabtoli or Sayedabad to Kuakata direct.'
-  },
-  {
-    type: 'Launch',
-    route: 'Dhaka to Patuakhali',
-    fare: '৳৫০০ - ৳৪০০০',
-    duration: '৯-১০ ঘণ্টা',
-    description: 'Sadarghat to Patuakhali, then bus/auto to Kuakata.'
-  }
+export const EMERGENCY_SERVICES = [
+  { id: 'e1', nameBn: 'জেলা প্রশাসন পর্যটন সেল', nameEn: 'District Admin Tourism Cell', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Government_Seal_of_Bangladesh.svg/1200px-Government_Seal_of_Bangladesh.svg.png', phone: '01700-000000' },
+  { id: 'e2', nameBn: 'টুরিস্ট পুলিশ', nameEn: 'Tourist Police', icon: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Bangladesh_Police_Logo.svg/1200px-Bangladesh_Police_Logo.svg.png', phone: '01320-000000' },
+  { id: 'e3', nameBn: 'ডাক্তার', nameEn: 'Doctor', icon: 'https://cdn-icons-png.flaticon.com/512/2785/2785482.png', phone: '16263' },
+  { id: 'e4', nameBn: 'লাইফগার্ড', nameEn: 'Lifeguard', icon: 'https://cdn-icons-png.flaticon.com/512/2964/2964514.png', phone: '01711-000000' }
 ];

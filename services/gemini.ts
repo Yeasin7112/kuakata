@@ -1,26 +1,38 @@
+import { GoogleGenAI, Type, Modality } from "@google/genai";
 
-import { GoogleGenAI, Type } from "@google/genai";
-
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
-export const generateProductDescription = async (productName: string, category: string) => {
+/**
+ * Generates audio for a given text using Gemini TTS
+ */
+export const speakText = async (text: string) => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: `Write a short, appetizing or inviting 2-line description for a ${category} product named "${productName}" in Kuakata. Provide it in English and Bengali. Format: English | Bengali`,
+      model: "gemini-2.5-flash-preview-tts",
+      contents: [{ parts: [{ text: `Read this announcement clearly in Bengali: ${text}` }] }],
+      config: {
+        responseModalities: [Modality.AUDIO],
+        speechConfig: {
+          voiceConfig: {
+            prebuiltVoiceConfig: { voiceName: 'Kore' }, 
+          },
+        },
+      },
     });
-    return response.text;
+
+    const base64Audio = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+    return base64Audio || null;
   } catch (error) {
-    console.error("AI Description Error:", error);
-    return "Great choice for your stay/meal! | এটি আপনার জন্য চমৎকার পছন্দ!";
+    console.error("TTS Error:", error);
   }
+  return null;
 };
 
 export const generateTourPlan = async (days: number) => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   try {
     const response = await ai.models.generateContent({
       model: 'gemini-3-pro-preview',
-      contents: `Create a detailed ${days}-day tourism itinerary for Kuakata, Patuakhali, Bangladesh. Focus on sunrise/sunset, local food, Lebur Chor. Response in JSON.`,
+      contents: `Create a detailed ${days}-day tourism itinerary for Kuakata, Bangladesh. Response must be strictly JSON.`,
       config: {
         responseMimeType: "application/json",
         responseSchema: {
@@ -42,33 +54,15 @@ export const generateTourPlan = async (days: number) => {
         }
       }
     });
-    return JSON.parse(response.text || '{}');
+    
+    // Clean JSON response from markdown wrappers if present
+    let text = response.text || '{}';
+    if (text.startsWith('```')) {
+      text = text.replace(/^```json/, '').replace(/```$/, '').trim();
+    }
+    return JSON.parse(text);
   } catch (error) {
+    console.error("Gemini AI Error:", error);
     return null;
-  }
-};
-
-export const getLiveInfo = async (query: string, lat?: number, lng?: number) => {
-  try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: query,
-      config: {
-        tools: [{ googleMaps: {} }, { googleSearch: {} }],
-        toolConfig: lat && lng ? {
-          retrievalConfig: { latLng: { latitude: lat, longitude: lng } }
-        } : undefined
-      },
-    });
-    const text = response.text;
-    const sources = response.candidates?.[0]?.groundingMetadata?.groundingChunks
-      ?.map((chunk: any) => {
-        if (chunk.maps) return { title: chunk.maps.title, uri: chunk.maps.uri };
-        if (chunk.web) return { title: chunk.web.title, uri: chunk.web.uri };
-        return null;
-      }).filter(Boolean) || [];
-    return { text, sources };
-  } catch (error) {
-    return { text: "তথ্য লোড করতে সমস্যা হয়েছে।", sources: [] };
   }
 };
